@@ -1,0 +1,95 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Oct 22, 2024, 7:31:30 AM
+    Author     : ASUS
+*/
+
+h1 {
+    font-size: 2.5em;
+    color: #4CAF50;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+
+
+/* Đường viền của bảng */
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+/* Định dạng tiêu đề */
+th {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+/* Các ô dữ liệu */
+td {
+    text-align: center;
+    padding: 8px;
+}
+
+/* Định dạng riêng cho cột "Name" để tạo nổi bật */
+td a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+td a:hover {
+    color: #2e7d32;
+    text-decoration: underline;
+}
+
+/* Hiệu ứng hover cho các hàng dữ liệu */
+
+
+
+
+tr:hover {
+    background-color: #d4edda;
+}
+
+/* Nút Delete và Update */
+input[type="button"] {
+    padding: 5px 10px;
+    background-color: #f44336; /* Màu đỏ cho nút Delete */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+input[type="button"]:hover {
+    background-color: #d32f2f;
+}
+
+/* Nút Update */
+td a.update {
+    padding: 5px 10px;
+    background-color: #008CBA; /* Màu xanh cho nút Update */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+td a.update:hover {
+    background-color: #007B9E;
+}
