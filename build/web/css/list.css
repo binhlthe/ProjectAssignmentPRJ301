@@ -3,7 +3,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to c
 Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
 */
 /* 
-    Created on : Oct 22, 2024, 7:31:30 AM
+    Created on : Oct 29, 2024, 8:52:03 PM
     Author     : ASUS
 */
 
@@ -79,8 +79,8 @@ input[type="button"]:hover {
     background-color: #d32f2f;
 }
 
-/* Nút Update */
-td a.update {
+/* CSS cho <td> chứa thẻ <a> có class là "update" */
+td a.update{
     padding: 5px 10px;
     background-color: #008CBA; /* Màu xanh cho nút Update */
     color: white;

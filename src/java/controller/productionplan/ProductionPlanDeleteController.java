@@ -14,8 +14,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import model.ProductionPlan;
-import model.ProductionPlanHeader;
+import model.plan.ProductionPlan;
+import model.plan.ProductionPlanHeader;
 
 /**
  *

@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Production Plan List</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/abcxyz.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/list.css">
     <script>
         function removePlan(id) {
             var result = confirm("Are you sure?");
@@ -14,36 +14,6 @@
             }
         }
 
-        function editPlan(id) {
-            var row = document.getElementById("row" + id);
-            var cells = row.querySelectorAll("td[data-editable]");
-
-            for (var i = 0; i < cells.length; i++) {
-                var cell = cells[i];
-                var input = document.createElement("input");
-                input.type = "text";
-                input.value = cell.innerHTML.trim();
-                cell.innerHTML = "";
-                cell.appendChild(input);
-            }
-
-            document.getElementById("saveBtn" + id).style.display = "inline-block";
-            document.getElementById("editBtn" + id).style.display = "none";
-        }
-
-        function savePlan(id) {
-            var row = document.getElementById("row" + id);
-            var inputs = row.querySelectorAll("td[data-editable] input");
-
-            for (var i = 0; i < inputs.length; i++) {
-                var input = inputs[i];
-                var value = input.value.trim();
-                input.parentElement.innerHTML = value;
-            }
-
-            // Submit the updated data to the server (using AJAX or form submission)
-            document.getElementById("saveForm" + id).submit();
-        }
     </script>
 </head>
 <body>
@@ -54,51 +24,74 @@
             <td style="font-weight: bold">Name</td>
             <td style="font-weight: bold">StartDate</td>
             <td style="font-weight: bold">EndDate</td>
-            <td style="font-weight: bold">Quantity</td>
+            <td style="font-weight: bold">Remained Amount</td>
+            <td style="font-weight: bold">Total Amount</td>
             <td style="font-weight: bold">Product</td>
             <td style="font-weight: bold">Estimation</td>
-            <td></td>
-            <td></td>
+            <td style="font-weight: bold">Update</td>
+            <td style="font-weight: bold">Delete</td>
+            
         </tr>
         <c:forEach items="${requestScope.plans}" var="p">
-            <tr id="row${p.id}">
-                <td>${p.id}</td>
-                <td data-editable>${p.name} </td>
-                <td data-editable>${p.start}</td>
-                <td data-editable>${p.end}</td>
+            <tr>
+                <td rowspan="${p.headers.size()}">${p.id}</td>
+                <td rowspan="${p.headers.size()}"><a href="detail?plid=${p.id}">${p.name}</a> </td>
+                <td rowspan="${p.headers.size()}">${p.start}</td>
+                <td  rowspan="${p.headers.size()}">${p.end}</td>
                 <td>
-                    <c:forEach items="${p.headers}" var="h">
-                        <span data-editable>${h.quantity}</span><br/>
-                    </c:forEach>
+                   
+                       ${p.headers[0].remainedquantity}<br/>
+                    
                 </td>
                 <td>
-                    <c:forEach items="${p.headers}" var="h">
-                        ${h.product.name}<br/>
-                    </c:forEach>
+                   
+                       ${p.headers[0].quantity}<br/>
+                    
                 </td>
                 <td>
-                    <c:forEach items="${p.headers}" var="h">
-                        ${h.estimatedeffort}<br/>
-                    </c:forEach>
+                    ${p.headers[0].product.name}<br/>
                 </td>
                 <td>
-<!--                    <button id="editBtn${p.id}" onclick="editPlan(${p.id})">Edit</button>
-                    <button id="saveBtn${p.id}" style="display:none" onclick="savePlan(${p.id})">Save</button>-->
-<!--                    <form id="saveForm${p.id}" action="../productionplan/update" method="POST">
-                        <input type="hidden" name="id" value="${p.id}">
-                         Add hidden inputs to capture updated fields if needed 
-                    </form>-->
+                    ${p.headers[0].estimatedeffort}<br/>
+                </td> 
+                
+                <td rowspan="${p.headers.size()}">
+                    <a class="update" href="update?plid=${p.id}">Update</a>
                 </td>
-                <td>
+                
+                <td rowspan="${p.headers.size()}">
                     <input type="button" value="Delete" onclick="removePlan(${p.id})">
                     <form id="formRemove${p.id}" action="../productionplan/delete" method="POST">
                         <input type="hidden" name="id" value="${p.id}">
                     </form>
                 </td>
-                    
-                    
-
+                
+                
             </tr>
+            
+            <c:forEach var="i" begin="1" end="${p.headers.size()-1}" >
+                <tr>
+                <td>
+                   
+                       ${p.headers[i].remainedquantity}<br/>
+                    
+                </td>
+                <td>
+                   
+                       ${p.headers[i].quantity}<br/>
+                    
+                </td>
+                <td>
+                   
+                       ${p.headers[i].product.name}<br/>
+                    
+                </td>
+                <td>
+                    ${p.headers[i].estimatedeffort}<br/>
+                </td>
+            </tr>
+            </c:forEach>
+            
         </c:forEach>
     </table>
 </body>

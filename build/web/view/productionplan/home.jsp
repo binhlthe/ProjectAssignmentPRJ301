@@ -4,20 +4,38 @@
     Author     : ASUS
 --%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/home.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/homepage.css">
 </head>
 <body>
+    <div  class="logout">
+        <c:if test="${account ne null}">
+            <form action="logout" method="GET">
+            <button type="submit" >Logout</button>
+        </form> 
+        </c:if>
+        <c:if test="${account eq null}">
+            <form action="login" method="GET">
+            <button type="submit" >Login</button>
+        </form> 
+        </c:if>
+        
+    </div>
+    
     <div class="container">
-        <h1>Welcome to the Production Plan Management</h1>
+        <h1>Welcome to Home Page of ABC Company</h1>
+        
+        
         <div class="button-container">
             <a href="productionplan/create" class="button">Create Plan</a>
             <a href="pp/list" class="button">View Plans</a>
+            
         </div>
     </div>
 </body>

@@ -14,13 +14,13 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.ProductionPlan;
+import model.plan.ProductionPlan;
 import java.sql.Date;
 import java.util.ArrayList;
-import model.Product;
-import model.ProductionPlanDetail;
-import model.ProductionPlanHeader;
-import model.Shift;
+import model.plan.Product;
+import model.plan.ProductionPlanDetail;
+import model.plan.ProductionPlanHeader;
+import model.plan.Shift;
 
 /**
  *

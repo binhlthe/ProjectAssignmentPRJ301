@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Department;
+import model.plan.Department;
 /**
  *
  * @author ASUS

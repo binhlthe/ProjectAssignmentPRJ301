@@ -15,10 +15,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.sql.Date;
 import java.util.ArrayList;
-import model.Department;
-import model.Product;
-import model.ProductionPlan;
-import model.ProductionPlanHeader;
+import model.plan.Department;
+import model.plan.Product;
+import model.plan.ProductionPlan;
+import model.plan.ProductionPlanHeader;
 
 /**
  *

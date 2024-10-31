@@ -5,11 +5,11 @@
 package dal;
 
 import java.util.ArrayList;
-import model.ProductionPlanHeader;
+import model.plan.ProductionPlanHeader;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.Product;
+import model.plan.Product;
 
 /**
  *
@@ -29,11 +29,11 @@ public class ProductionPlanHeaderDBContext extends DBContext<ProductionPlanHeade
             stm = connection.prepareStatement(sql);
             stm.setInt(1, model.getId());
             ResultSet rs = stm.executeQuery();
-            if (rs.next()) {
+            
                 while (rs.next()) {
                     sumAQ += rs.getInt("actualquantity");
                 }
-            }
+            
             sumRMQ = model.getQuantity() - sumAQ;
             model.setRemainedquantity(sumRMQ);
         } catch (SQLException ex) {

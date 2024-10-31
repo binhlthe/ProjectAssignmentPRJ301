@@ -22,7 +22,7 @@
             From: <input id="plan" type="date" name="from"/> To: <input type="date" name="to"/> <br/>
             Workshop: <select name="did">
                 <c:forEach items="${requestScope.depts}" var="d">
-                    <option value="${d.id}">${d.name}</option>
+                    <option value="${d.id}" >${d.name}</option>
                 </c:forEach>
             </select>
             <br/>
@@ -41,7 +41,7 @@
                     </tr>
                 </c:forEach>
             </table>
-            <input id="submit" type="submit" value="Save">
+            <input id="submit" type="submit" value="Create">
         </form>
         
       

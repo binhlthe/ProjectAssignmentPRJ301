@@ -4,6 +4,7 @@
  */
 package controller.productionplan;
 
+import controller.auth.BaseRBACController;
 import dal.DepartmentDBContext;
 import dal.ProductionPlanDBContext;
 import dal.ProductionPlanDetailDBContext;
@@ -15,20 +16,29 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
-import model.Department;
-import model.ProductionPlan;
-import model.ProductionPlanDetail;
-import model.ProductionPlanHeader;
+import model.auth.User;
+import model.plan.Department;
+import model.plan.ProductionPlan;
+import model.plan.ProductionPlanDetail;
+import model.plan.ProductionPlanHeader;
 
 /**
  *
  * @author ASUS
  */
-public class ProductionPlanListController extends HttpServlet {
+public class ProductionPlanListController extends BaseRBACController {
+
+
+    
+    
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    protected void doAuthorizedPost(HttpServletRequest req, HttpServletResponse resp, User account) throws ServletException, IOException {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    protected void doAuthorizedGet(HttpServletRequest request, HttpServletResponse response, User account) throws ServletException, IOException {
         ProductionPlanDBContext dbPlan= new ProductionPlanDBContext();
         ArrayList<ProductionPlan> plans= new ArrayList<>();
         plans= dbPlan.list();
@@ -48,14 +58,7 @@ public class ProductionPlanListController extends HttpServlet {
         
         request.setAttribute("plans", plans);
         
-        request.getRequestDispatcher("../view/productionplan/listtest.jsp").forward(request, response);
-    }
-
-    
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
+        request.getRequestDispatcher("../view/productionplan/list.jsp").forward(request, response);
     }
 
 

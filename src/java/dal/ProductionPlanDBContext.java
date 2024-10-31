@@ -8,11 +8,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.ProductionPlan;
+import model.plan.ProductionPlan;
 import java.sql.*;
-import model.Department;
-import model.Product;
-import model.ProductionPlanHeader;
+import model.plan.Department;
+import model.plan.Product;
+import model.plan.ProductionPlanHeader;
 
 /**
  *
@@ -95,13 +95,87 @@ public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
 
     @Override
     public void update(ProductionPlan model) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+        try {
+            connection.setAutoCommit(false);
+            String update_plan_sql = "UPDATE [Plans]\n"
+                    + "   SET [plname] = ?\n"
+                    + "      ,[startdate] =?\n"
+                    + "      ,[enddate] = ?\n"
+                    + "      ,[did] = ?\n"
+                    + " WHERE plid=?";
+            PreparedStatement stm_update_plan = null;
+            stm_update_plan = connection.prepareStatement(update_plan_sql);
+            stm_update_plan.setString(1, model.getName());
+            stm_update_plan.setDate(2, model.getStart());
+            stm_update_plan.setDate(3, model.getEnd());
+            stm_update_plan.setInt(4, model.getDept().getId());
+            stm_update_plan.setInt(5, model.getId());
+            stm_update_plan.executeUpdate();
+
+            String update_header_sql = "UPDATE [PlanHeaders]\n"
+                    + "   SET\n"
+                    + "      [quantity] = ?\n"
+                    + "      ,[estimatedeffort] = ?\n"
+                    + " WHERE phid=?and pid=?";
+            PreparedStatement stm_update_header= null;
+            stm_update_header=connection.prepareStatement(update_header_sql);
+            for(ProductionPlanHeader header: model.getHeaders()){
+                stm_update_header.setInt(1, header.getQuantity());
+                stm_update_header.setFloat(2, header.getEstimatedeffort());
+                stm_update_header.setInt(3, header.getId());
+                stm_update_header.setInt(4, header.getProduct().getId());
+                stm_update_header.executeUpdate();
+            }
+            connection.commit();
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductionPlanDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback();
+            } catch (SQLException ex1) {
+                Logger.getLogger(ProductionPlanDBContext.class.getName()).log(Level.SEVERE, null, ex1);
+            }
+        } finally {
+             try {
+                connection.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductionPlanDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            try {
+                connection.close();
+            } catch (SQLException ex) {
+                Logger.getLogger(ProductionPlanDBContext.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
     }
 
     @Override
     public void delete(ProductionPlan model) {
         try {
             connection.setAutoCommit(false);
+
+            ProductionPlanDetailDBContext dbDetail = new ProductionPlanDetailDBContext();
+            WorkAssignmentDBContext dbWA = new WorkAssignmentDBContext();
+
+            for (ProductionPlanHeader header : model.getHeaders()) {
+                for (Integer did : dbDetail.listID(header.getId())) {
+                    for (Integer id : dbWA.listID(did)) {
+                        String delete_attendance_sql = "DELETE FROM [Attendances]  WHERE waid=?";
+                        PreparedStatement stm_delete_attendance = connection.prepareStatement(delete_attendance_sql);
+                        stm_delete_attendance.setInt(1, id);
+                        stm_delete_attendance.executeUpdate();
+                    }
+                }
+            }
+
+            for (ProductionPlanHeader header : model.getHeaders()) {
+                for (Integer did : dbDetail.listID(header.getId())) {
+                    String delete_workassignment_sql = "DELETE FROM [WorkAssignments]  WHERE pdid=?";
+                    PreparedStatement stm_delete_workassignment = connection.prepareStatement(delete_workassignment_sql);
+                    stm_delete_workassignment.setInt(1, did);
+                    stm_delete_workassignment.executeUpdate();
+                }
+            }
 
             for (ProductionPlanHeader header : model.getHeaders()) {
                 String delete_detail_sql = "DELETE FROM [PlanDetails]\n"
@@ -206,13 +280,10 @@ public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
     @Override
     public ProductionPlan get(int id) {
         PreparedStatement stm = null;
-        String sql = "select p.plid,pname, plname,startdate,enddate,did,h.phid,h.pid,h.quantity as [totalquantity],estimatedeffort,pr.pid,pname,[description],d.pdid,d.phid,[sid],[date],d.quantity as [detail quantity],w.waid, d.pdid,eid,w.quantity as[wquantity], atid,actualquantity,alpha\n"
+        String sql = "select p.plid,pname, plname,startdate,enddate,did,h.phid,h.pid,quantity,estimatedeffort\n"
                 + "from Plans p join PlanHeaders h on p.plid=h.plid\n"
                 + "join Products pr on pr.pid=h.pid\n"
-                + "join PlanDetails d on d.phid=h.phid\n"
-                + "join WorkAssignments w on w.pdid=d.pdid\n"
-                + "join Attendances a on a.waid=w.waid"
-                + "where plid=?";
+                + "where p.plid=?";
         ArrayList<ProductionPlanHeader> headers = new ArrayList<>();
         ProductionPlan cPlan = new ProductionPlan();
         try {
