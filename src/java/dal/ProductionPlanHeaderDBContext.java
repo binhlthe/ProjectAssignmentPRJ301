@@ -29,39 +29,39 @@ public class ProductionPlanHeaderDBContext extends DBContext<ProductionPlanHeade
             stm = connection.prepareStatement(sql);
             stm.setInt(1, model.getId());
             ResultSet rs = stm.executeQuery();
-            
-                while (rs.next()) {
-                    sumAQ += rs.getInt("actualquantity");
-                }
-            
+
+            while (rs.next()) {
+                sumAQ += rs.getInt("actualquantity");
+            }
+
             sumRMQ = model.getQuantity() - sumAQ;
             model.setRemainedquantity(sumRMQ);
         } catch (SQLException ex) {
             Logger.getLogger(ProductionPlanHeaderDBContext.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            
+
         }
         return sumRMQ;
     }
 
     public ArrayList<ProductionPlanHeader> listHeader(int plid) {
         String sql = "select phid,plid,p.pid,pname,quantity,estimatedeffort\n"
-                    + "from PlanHeaders h join Products p on h.pid=p.pid\n"
-                    + "where plid=?";
-            PreparedStatement stm=null;
-            ArrayList<ProductionPlanHeader> headers= new ArrayList<>();
+                + "from PlanHeaders h join Products p on h.pid=p.pid\n"
+                + "where plid=?";
+        PreparedStatement stm = null;
+        ArrayList<ProductionPlanHeader> headers = new ArrayList<>();
         try {
-            
-            stm=connection.prepareStatement(sql);
+
+            stm = connection.prepareStatement(sql);
             stm.setInt(1, plid);
             ResultSet rs = stm.executeQuery();
-            while(rs.next()){
-                ProductionPlanHeader header= new ProductionPlanHeader();
+            while (rs.next()) {
+                ProductionPlanHeader header = new ProductionPlanHeader();
                 header.setId(rs.getInt("phid"));
                 header.setEstimatedeffort(rs.getFloat("estimatedeffort"));
                 header.setQuantity(rs.getInt("quantity"));
-                
-                Product product= new Product();
+
+                Product product = new Product();
                 product.setId(rs.getInt("pid"));
                 product.setName(rs.getString("pname"));
                 header.setProduct(product);
@@ -69,9 +69,8 @@ public class ProductionPlanHeaderDBContext extends DBContext<ProductionPlanHeade
             }
         } catch (SQLException ex) {
             Logger.getLogger(ProductionPlanHeaderDBContext.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-            
+        } finally {
+
         }
         return headers;
     }
@@ -98,7 +97,24 @@ public class ProductionPlanHeaderDBContext extends DBContext<ProductionPlanHeade
 
     @Override
     public ProductionPlanHeader get(int id) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        String sql = "select phid,quantity,estimatedeffort\n"
+                + "from PlanHeaders\n"
+                + "where phid=?";
+        PreparedStatement stm=null;
+        ProductionPlanHeader header=new ProductionPlanHeader();
+        try {
+            stm=connection.prepareStatement(sql);
+            stm.setInt(1, id);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                header.setId(id);
+                header.setQuantity(rs.getInt("quantity"));
+                header.setEstimatedeffort(rs.getFloat("estimatedeffort"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductionPlanHeaderDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return header;
     }
 
 }

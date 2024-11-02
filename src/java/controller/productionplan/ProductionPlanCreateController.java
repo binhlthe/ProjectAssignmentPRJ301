@@ -41,6 +41,7 @@ public class ProductionPlanCreateController extends BaseRBACController {
         
         String startDate= request.getParameter("from");
         String endDate= request.getParameter("to");
+      
         
         if(startDate.isEmpty()){
             response.getWriter().print("You must enter the value");

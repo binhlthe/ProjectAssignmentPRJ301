@@ -17,6 +17,7 @@ public class ProductionPlanHeader {
     private int quantity;
     private float estimatedeffort;
     private int remainedquantity;
+    private ArrayList<ProductionPlanDetail> detail;
     
  
     public int getId() {
@@ -65,6 +66,14 @@ public class ProductionPlanHeader {
 
     public void setRemainedquantity(int remainedquantity) {
         this.remainedquantity = remainedquantity;
+    }
+
+    public ArrayList<ProductionPlanDetail> getDetail() {
+        return detail;
+    }
+
+    public void setDetail(ArrayList<ProductionPlanDetail> detail) {
+        this.detail = detail;
     }
     
     

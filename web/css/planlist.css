@@ -1,0 +1,121 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Oct 29, 2024, 8:52:03 PM
+    Author     : ASUS
+*/
+
+h1 {
+    font-size: 2.5em;
+    color: #4CAF50;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+}
+
+
+
+/* Đường viền của bảng */
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+/* Định dạng tiêu đề */
+th {
+    background-color: #4CAF50;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 1.2em;
+}
+
+/* Các ô dữ liệu */
+td {
+    text-align: center;
+    padding: 8px;
+}
+
+/* Định dạng riêng cho cột "Name" để tạo nổi bật */
+td a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+td a:hover {
+    color: #2e7d32;
+    text-decoration: underline;
+}
+
+/* Hiệu ứng hover cho các hàng dữ liệu */
+
+
+
+
+tr:hover {
+    background-color: #d4edda;
+}
+
+/* Nút Delete và Update */
+input[type="button"] {
+    padding: 5px 10px;
+    background-color: #f44336; /* Màu đỏ cho nút Delete */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9em;
+}
+
+input[type="button"]:hover {
+    background-color: #d32f2f;
+}
+
+/* CSS cho <td> chứa thẻ <a> có class là "update" */
+td a.update{
+    padding: 5px 10px;
+    background-color: #008CBA; /* Màu xanh cho nút Update */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+td a.update:hover {
+    background-color: #007B9E;
+}
+.button-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; /* Đặt kích thước nút */
+    height: 40px;
+    background-color: #333; /* Màu nền đen */
+    color: white; /* Màu mũi tên */
+    font-size: 20px; /* Kích thước mũi tên */
+    text-decoration: none;
+    border-radius: 50%; /* Bo tròn hoàn toàn để tạo nút hình tròn */
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+    margin-bottom: 20px
+}
+
+.button-back:hover {
+    background-color: #555; /* Màu khi hover */
+}
+
+.button-back:active {
+    background-color: #222; /* Màu khi nhấn */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Giảm đổ bóng khi nhấn */
+    transform: translateY(2px); /* Nhấn nút xuống một chút khi nhấn */
+}

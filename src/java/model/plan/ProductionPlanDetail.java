@@ -10,9 +10,11 @@ import java.sql.*;
  */
 public class ProductionPlanDetail {
     private ProductionPlanHeader header;
+    private int id;
     private int sid;
     private Date date;
     private int quantity;
+    private Shift shift;
     
 
     public ProductionPlanHeader getHeader() {
@@ -45,6 +47,22 @@ public class ProductionPlanDetail {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public Shift getShift() {
+        return shift;
+    }
+
+    public void setShift(Shift shift) {
+        this.shift = shift;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
     

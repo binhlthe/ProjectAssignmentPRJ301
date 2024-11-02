@@ -12,13 +12,39 @@ import model.plan.ProductionPlan;
 import java.sql.*;
 import model.plan.Department;
 import model.plan.Product;
+import model.plan.ProductionPlanDetail;
 import model.plan.ProductionPlanHeader;
+import model.plan.Shift;
 
 /**
  *
  * @author ASUS
  */
 public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
+
+    public ArrayList<ProductionPlan> listPlan() {
+        String sql = "select plid,plname,startdate,enddate,did\n"
+                + "from Plans ";
+        PreparedStatement stm = null;
+
+        ArrayList<ProductionPlan> plans = new ArrayList<>();
+        try {
+            stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                ProductionPlan plan = new ProductionPlan();
+                plan.setId(rs.getInt("plid"));
+                plan.setName(rs.getString("plname"));
+                plan.setStart(rs.getDate("startdate"));
+                plan.setEnd(rs.getDate("enddate"));
+
+                plans.add(plan);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductionPlanDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return plans;
+    }
 
     @Override
     public void insert(ProductionPlan model) {
@@ -118,9 +144,9 @@ public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
                     + "      [quantity] = ?\n"
                     + "      ,[estimatedeffort] = ?\n"
                     + " WHERE phid=?and pid=?";
-            PreparedStatement stm_update_header= null;
-            stm_update_header=connection.prepareStatement(update_header_sql);
-            for(ProductionPlanHeader header: model.getHeaders()){
+            PreparedStatement stm_update_header = null;
+            stm_update_header = connection.prepareStatement(update_header_sql);
+            for (ProductionPlanHeader header : model.getHeaders()) {
                 stm_update_header.setInt(1, header.getQuantity());
                 stm_update_header.setFloat(2, header.getEstimatedeffort());
                 stm_update_header.setInt(3, header.getId());
@@ -136,7 +162,7 @@ public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
                 Logger.getLogger(ProductionPlanDBContext.class.getName()).log(Level.SEVERE, null, ex1);
             }
         } finally {
-             try {
+            try {
                 connection.setAutoCommit(true);
             } catch (SQLException ex) {
                 Logger.getLogger(ProductionPlanDBContext.class.getName()).log(Level.SEVERE, null, ex);
@@ -326,6 +352,91 @@ public class ProductionPlanDBContext extends DBContext<ProductionPlan> {
             Logger.getLogger(ProductionPlanDBContext.class.getName()).log(Level.SEVERE, null, ex);
         }
         return cPlan;
+    }
+
+   
+
+    public ArrayList<ProductionPlan> search(Integer plid, Integer pid,Integer sid,Date date) {
+        String sql = "select p.plid,p.plname,h.phid,pr.pid,pr.pname,d.[sid],[date],s.sname,d.pdid\n"
+                + "from Plans p join PlanHeaders h on p.plid=h.plid\n"
+                + "join Products pr on pr.pid=h.pid\n"
+                + "join PlanDetails d on d.phid=h.phid\n"
+                + "join Shifts s on d.[sid]=s.sid\n"
+                + "where (1=1) ";
+        
+        ArrayList<Object> paramValues = new ArrayList<>();
+        if(plid != null){
+            sql+="and p.plid=?";
+            paramValues.add(plid);
+        }
+        if(pid != null){
+            sql+="and pr.pid=?";
+            paramValues.add(pid);
+        }
+        if(sid != null){
+            sql+="and d.[sid]=?";
+            paramValues.add(sid);
+        }
+        if(date !=null){
+            sql+="and [date]=?";
+            paramValues.add(date);
+        }
+        
+        sql+="order by plid asc, phid asc";
+        
+        PreparedStatement stm=null;
+         ArrayList<ProductionPlan> plans = new ArrayList<>();
+        ArrayList<ProductionPlanHeader> headers = new ArrayList<>();
+        ArrayList<ProductionPlanDetail> details = new ArrayList<>();
+        try {
+            stm=connection.prepareStatement(sql);
+            
+            for(int i=0;i<paramValues.size();i++){
+                stm.setObject(i+1, paramValues.get(i));
+            }
+            ResultSet rs = stm.executeQuery();
+            ProductionPlan plan = new ProductionPlan();
+            ProductionPlanHeader header = new ProductionPlanHeader();
+            header.setId(-1);
+            plan.setId(-1);
+            while(rs.next()){
+                int planid = rs.getInt("plid");
+                if (planid != plan.getId()) {
+                    plan = new ProductionPlan();
+                    plan.setId(planid);
+                    plan.setName(rs.getString("plname"));
+                    plans.add(plan);
+                    headers = new ArrayList<>();
+                }
+                int hid = rs.getInt("phid");
+                if (hid != header.getId()) {
+                    Product p = new Product();
+                    p.setId(rs.getInt("pid"));
+                    p.setName(rs.getString("pname"));
+
+                    header = new ProductionPlanHeader();
+                    header.setProduct(p);
+                    header.setId(hid);
+                    headers.add(header);
+                    plan.setHeaders(headers);
+                    details = new ArrayList<>();
+                }
+                ProductionPlanDetail detail = new ProductionPlanDetail();
+                detail.setId(rs.getInt("pdid"));
+                detail.setSid(rs.getInt("sid"));
+                detail.setDate(rs.getDate("date"));
+                Shift s = new Shift();
+                s.setId(rs.getInt("sid"));
+                s.setName(rs.getString("sname"));
+                detail.setShift(s);
+                details.add(detail);
+                header.setDetail(details);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(ProductionPlanDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return plans;
     }
 
 }

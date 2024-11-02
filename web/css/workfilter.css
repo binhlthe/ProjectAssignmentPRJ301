@@ -1,0 +1,136 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Oct 31, 2024, 11:49:51 PM
+    Author     : ASUS
+*/
+
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Oct 31, 2024, 10:17:39 PM
+    Author     : ASUS
+*/
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #4CAF50;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+
+    margin-bottom: 20px;
+}
+
+select, input[type="date"], .filter {
+    padding: 8px 12px;
+    margin: 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 200px;
+}
+
+select:focus, input[type="date"]:focus, input[type="submit"]:focus {
+    border-color: #4a90e2;
+    outline: none;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.assign {
+    padding: 8px 12px;
+    margin: 0 auto;
+
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    width: 200px;
+}
+
+input[type="submit"]:hover {
+    background-color: #357abd;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #4a90e2;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+@media (max-width: 768px) {
+    form, select, input[type="date"], input[type="submit"] {
+        font-size: 12px;
+    }
+
+    th, td {
+        padding: 10px;
+    }
+}
+.button-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; /* Đặt kích thước nút */
+    height: 40px;
+    background-color: #333; /* Màu nền đen */
+    color: white; /* Màu mũi tên */
+    font-size: 20px; /* Kích thước mũi tên */
+    text-decoration: none;
+    border-radius: 50%; /* Bo tròn hoàn toàn để tạo nút hình tròn */
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+    margin-bottom: 20px
+}
+
+.button-back:hover {
+    background-color: #555; /* Màu khi hover */
+}
+
+.button-back:active {
+    background-color: #222; /* Màu khi nhấn */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Giảm đổ bóng khi nhấn */
+    transform: translateY(2px); /* Nhấn nút xuống một chút khi nhấn */
+}

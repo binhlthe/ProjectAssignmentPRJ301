@@ -11,16 +11,16 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/detail.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/detaillist.css">
     </head>
     <body>
         <h1>${requestScope.plan.name} Detail</h1>
-        
+        <a href="list" class="button-back">&#8592;</a>
         
         
         <form action="detail" method="POST">
             <table border="1px">
-                <thead>
+                <thead style="font-weight: bold">
                     <tr>
                         <td colspan="2">Product</td>
                         <c:forEach items="${requestScope.plan.headers}" var="h">

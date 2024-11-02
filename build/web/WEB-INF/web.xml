@@ -32,6 +32,22 @@
         <servlet-name>LogoutController</servlet-name>
         <servlet-class>controller.auth.LogoutController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListDetail</servlet-name>
+        <servlet-class>controller.workassignment.WAFilterController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WAAssignController</servlet-name>
+        <servlet-class>controller.workassignment.WAAssignController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WAListController</servlet-name>
+        <servlet-class>controller.workassignment.WAListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WADeleteController</servlet-name>
+        <servlet-class>controller.workassignment.WADeleteController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductionPlanCreateController</servlet-name>
         <url-pattern>/productionplan/create</url-pattern>
@@ -63,5 +79,21 @@
     <servlet-mapping>
         <servlet-name>LogoutController</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListDetail</servlet-name>
+        <url-pattern>/wa/filter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WAAssignController</servlet-name>
+        <url-pattern>/wa/assign</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WAListController</servlet-name>
+        <url-pattern>/wa/view</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WADeleteController</servlet-name>
+        <url-pattern>/wa/delete</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -5,7 +5,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>Production Plan List</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/list.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/planlist.css">
     <script>
         function removePlan(id) {
             var result = confirm("Are you sure?");
@@ -18,6 +18,8 @@
 </head>
 <body>
     <h1>Production Plan List</h1>
+    <a href="../home"  class="button-back">&#8592;</a>
+    
     <table border="1px">
         <tr>
             <td style="font-weight: bold">ID</td>

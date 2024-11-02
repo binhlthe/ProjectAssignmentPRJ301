@@ -11,12 +11,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/test.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/create.css">
         
         
     </head>
     <body>
         <h1>Production Plan Creation</h1>
+        <a href="../home"  class="button-back">&#8592;</a>
         <form action="create" method="POST">
             Plan Name: <input id="plan" type="text" name="name"/> <br/>
             From: <input id="plan" type="date" name="from"/> To: <input type="date" name="to"/> <br/>

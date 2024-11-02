@@ -35,6 +35,7 @@
         <div class="button-container">
             <a href="productionplan/create" class="button">Create Plan</a>
             <a href="pp/list" class="button">View Plans</a>
+            <a href="wa/filter" class="button">Assign Works</a>
             
         </div>
     </div>

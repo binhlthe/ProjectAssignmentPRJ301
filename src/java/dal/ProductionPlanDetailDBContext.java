@@ -164,6 +164,8 @@ public class ProductionPlanDetailDBContext extends DBContext<ProductionPlanDetai
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
                 ProductionPlanDetail detail = new ProductionPlanDetail();
+                detail.setId(rs.getInt("pdid"));
+                
                 detail.setDate(rs.getDate("date"));
                 detail.setQuantity(rs.getInt("quantity"));
                 detail.setSid(rs.getInt("sid"));
@@ -197,7 +199,7 @@ public class ProductionPlanDetailDBContext extends DBContext<ProductionPlanDetai
             stm.setInt(1, id);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
-
+                detail.setId(rs.getInt("pdid"));
                 detail.setQuantity(rs.getInt("quantity"));
                 detail.setSid(rs.getInt("sid"));
                 detail.setDate(rs.getDate("date"));
