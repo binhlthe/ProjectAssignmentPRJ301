@@ -48,6 +48,14 @@
         <servlet-name>WADeleteController</servlet-name>
         <servlet-class>controller.workassignment.WADeleteController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>WorkListController</servlet-name>
+        <servlet-class>controller.attendance.WorkListController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>WorkMarkController</servlet-name>
+        <servlet-class>controller.attendance.WorkMarkController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ProductionPlanCreateController</servlet-name>
         <url-pattern>/productionplan/create</url-pattern>
@@ -95,5 +103,13 @@
     <servlet-mapping>
         <servlet-name>WADeleteController</servlet-name>
         <url-pattern>/wa/delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WorkListController</servlet-name>
+        <url-pattern>/at/worklist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>WorkMarkController</servlet-name>
+        <url-pattern>/at/workmark</url-pattern>
     </servlet-mapping>
 </web-app>

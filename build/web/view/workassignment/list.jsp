@@ -11,7 +11,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/worklist.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/workassignmentlist.css">
         <script>
         function removeWA(id) {
             var result = confirm("Are you sure?");

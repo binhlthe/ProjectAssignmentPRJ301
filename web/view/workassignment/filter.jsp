@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/workfilter.css">
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/filterwork.css">
     </head>
     <body>
         <h1>Filter WorkAssignments</h1>
@@ -41,6 +41,15 @@
         </form>
         
         <table border="1px">
+            <thead>
+                <tr>
+                    <td style="font-weight: bold">Plan Name</td>
+                    <td style="font-weight: bold">Product Name</td>
+                    <td style="font-weight: bold">Shift</td>
+                    <td style="font-weight: bold">Date</td>
+                    <td style="font-weight: bold">Option</td>
+                </tr>
+            </thead>
             <c:forEach items="${planresults}" var="p">
                 
             <c:forEach items="${p.headers}" var="h">

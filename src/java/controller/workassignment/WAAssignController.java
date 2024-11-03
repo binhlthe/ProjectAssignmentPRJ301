@@ -55,11 +55,7 @@ public class WAAssignController extends HttpServlet {
         ProductionPlanDetailDBContext dbDetail=new ProductionPlanDetailDBContext();
         ProductionPlanDetail detail=new ProductionPlanDetail();
         detail=dbDetail.get(pdid);
-        ArrayList<WorkAssignments> wasResult=dbWA.list(pdid);  //list tat ca cac wa trung voi pdid
-        int totalquantity=0;
-        for(WorkAssignments w: wasResult){
-            totalquantity+=w.getQuantity();
-        }
+        
         
         String[] ids= indexes.split(",");
         for(String id:ids){
@@ -73,17 +69,14 @@ public class WAAssignController extends HttpServlet {
             wa.setQuantity(Integer.parseInt(quantity));
             wa.setEmployee(e);
             wa.setDetail(detail);
-            totalquantity+=Integer.parseInt(quantity);
+            
             for(WorkAssignments w: was){
                 if((w.getEmployee().getId()==Integer.parseInt(eid)) && (w.getDetail().getId()==pdid)){
                     dbWA.update(wa);
                     exist=false;
                 }
             }
-            if(totalquantity>detail.getQuantity()){
-                response.getWriter().print("You must...");
-                return;
-            }
+            
            
             
             if(exist==true){
@@ -92,6 +85,7 @@ public class WAAssignController extends HttpServlet {
             
             
         }
+        response.sendRedirect("filter");
     }
 
 

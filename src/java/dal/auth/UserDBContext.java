@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 import model.auth.Feature;
 import model.auth.Role;
 import model.auth.User;
-
+import java.sql.*;
 /**
  *
  * @author ASUS
@@ -92,12 +92,8 @@ public class UserDBContext extends DBContext<User>{
         } catch (SQLException ex) {
             Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            try {
-                stm.close();
-                connection.close();
-            } catch (SQLException ex) {
-                Logger.getLogger(UserDBContext.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            
+           
         }
         return user;
     }

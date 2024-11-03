@@ -23,8 +23,8 @@ public class ProductionPlanHeaderDBContext extends DBContext<ProductionPlanHeade
                 + "join Attendances a on w.waid=a.waid\n"
                 + "where phid=?";
         PreparedStatement stm = null;
-        int sumAQ = 0;  //sum actual quantity
-        int sumRMQ = 0;  //sum remained quantity
+        int sumAQ = 0;  //tong cac actual quantity cua cac employee cua phid
+        int sumRMQ = 0;  //tong  remained quantity
         try {
             stm = connection.prepareStatement(sql);
             stm.setInt(1, model.getId());
@@ -35,7 +35,7 @@ public class ProductionPlanHeaderDBContext extends DBContext<ProductionPlanHeade
             }
 
             sumRMQ = model.getQuantity() - sumAQ;
-            model.setRemainedquantity(sumRMQ);
+           
         } catch (SQLException ex) {
             Logger.getLogger(ProductionPlanHeaderDBContext.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

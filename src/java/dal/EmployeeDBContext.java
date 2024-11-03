@@ -17,6 +17,25 @@ import model.plan.Department;
  */
 public class EmployeeDBContext extends DBContext<Employee> {
 
+    public Employee getEmp(int waid){
+        String sql="Select e.eid, e.ename from Employees e\n"
+                + "join WorkAssignments w on e.eid=w.eid\n"
+                + "where waid=? ";
+        PreparedStatement stm=null;
+        Employee e=new Employee();
+        try {
+            stm=connection.prepareStatement(sql);
+            stm.setInt(1, waid);
+            ResultSet rs = stm.executeQuery();
+            if(rs.next()){
+                e.setId(rs.getInt("eid"));
+                e.setName(rs.getString("ename"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeDBContext.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return e;
+    }
     @Override
     public void insert(Employee model) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

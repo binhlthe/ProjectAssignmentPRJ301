@@ -31,19 +31,17 @@
                 <tbody>
                     <c:forEach items="${requestScope.datePlan}" var="d">
                     <input type="hidden" name="date" value="${d}">
-                        <tr>
-                            
-                            <td rowspan="3">${d}</td>
-                            <td>K1<input type="hidden" name="sid${d}" value="1"></td>
-                            <c:forEach items="${requestScope.plan.headers}" var="h">
-                            <input type="hidden" name="hid${d}" value="${h.id}">
-                            <td><input type="text" name="quantity${h.id}1${d}"
-                                       <c:forEach items="${requestScope.details}" var="detail">
-                                           <c:if test="${(detail.header.id eq h.id) and (detail.date eq d)  and (detail.sid eq 1)}"> value="${detail.quantity}"</c:if>
+                    <tr>
+                        <td rowspan="3">${d}</td>
+                        <td>K1<input type="hidden" name="sid${d}" value="1"></td>
+                            <c:forEach items="${plan.headers}" var="h">
+                        <input type="hidden" name="hid${d}" value="${h.id}"> 
+                            <td><input type="text" name="quantity${h.id}1${d}" 
+                                       <c:forEach items="${details}" var="detail">
+                                           <c:if test="${(h.id eq detail.header.id) and (detail.date eq  d) and (detail.sid eq 1)}"> value="${detail.quantity}" </c:if>
                                        </c:forEach>></td>
-                            </c:forEach>
-                            
-                        </tr>
+                        </c:forEach>
+                    </tr>
                         <tr>
                             <td>K2<input type="hidden" name="sid${d}" value="2"></td>
                             <c:forEach items="${requestScope.plan.headers}" var="h">

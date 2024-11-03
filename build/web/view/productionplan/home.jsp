@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Home</title>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/homepage.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/webhome.css">
 </head>
 <body>
     <div  class="logout">
@@ -34,8 +34,9 @@
         
         <div class="button-container">
             <a href="productionplan/create" class="button">Create Plan</a>
-            <a href="pp/list" class="button">View Plans</a>
-            <a href="wa/filter" class="button">Assign Works</a>
+            <a href="pp/list" class="button">View Plan</a>
+            <a href="wa/filter" class="button">Assign Work</a>
+            <a href="at/worklist" class="button">Mark Work</a>
             
         </div>
     </div>

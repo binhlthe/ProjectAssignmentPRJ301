@@ -28,10 +28,6 @@ import model.plan.ProductionPlanHeader;
  */
 public class ProductionPlanListController extends BaseRBACController {
 
-
-    
-    
-
     @Override
     protected void doAuthorizedPost(HttpServletRequest req, HttpServletResponse resp, User account) throws ServletException, IOException {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
@@ -39,27 +35,24 @@ public class ProductionPlanListController extends BaseRBACController {
 
     @Override
     protected void doAuthorizedGet(HttpServletRequest request, HttpServletResponse response, User account) throws ServletException, IOException {
-        ProductionPlanDBContext dbPlan= new ProductionPlanDBContext();
-        ArrayList<ProductionPlan> plans= new ArrayList<>();
-        plans= dbPlan.list();
-        
-       
-        
-        ProductionPlanHeaderDBContext dbHeader= new ProductionPlanHeaderDBContext();
-        for(ProductionPlan plan: plans){
-            ArrayList<ProductionPlanHeader> headers= dbHeader.listHeader(plan.getId());
-            for(ProductionPlanHeader header: headers){
-                int sum=dbHeader.getRMQuantity(header);
+        ProductionPlanDBContext dbPlan = new ProductionPlanDBContext();
+        ArrayList<ProductionPlan> plans = new ArrayList<>();
+        plans = dbPlan.list();
+
+        ProductionPlanHeaderDBContext dbHeader = new ProductionPlanHeaderDBContext();
+        for (ProductionPlan plan : plans) {
+            ArrayList<ProductionPlanHeader> headers = dbHeader.listHeader(plan.getId());
+            for (ProductionPlanHeader header : headers) {
+                int sum = dbHeader.getRMQuantity(header);
                 header.setRemainedquantity(sum);
-                
+
             }
             plan.setHeaders(headers);
         }
-        
+
         request.setAttribute("plans", plans);
-        
+
         request.getRequestDispatcher("../view/productionplan/list.jsp").forward(request, response);
     }
-
 
 }

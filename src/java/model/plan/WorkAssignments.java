@@ -13,6 +13,7 @@ public class WorkAssignments {
     private Employee employee;
     private ProductionPlanDetail detail;
     private int quantity;
+    private Attendance attendance;
 
     public int getId() {
         return id;
@@ -45,6 +46,16 @@ public class WorkAssignments {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+
+    public Attendance getAttendance() {
+        return attendance;
+    }
+
+    public void setAttendance(Attendance attendance) {
+        this.attendance = attendance;
+    }
+    
+    
     
     
 }

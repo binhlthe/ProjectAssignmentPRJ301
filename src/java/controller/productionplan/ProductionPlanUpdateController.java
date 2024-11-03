@@ -62,7 +62,7 @@ public class ProductionPlanUpdateController extends HttpServlet{
         
         plan.setEnd(Date.valueOf(endDate));
         
-        //xóa các detail có date <start và date> end
+        //xóa các detail có date < start và date > end
         for(ProductionPlanHeader header: plan.getHeaders()){
             ArrayList<Integer> listIDDetail = new ArrayList<>();
             listIDDetail= dbDetail.listID(header.getId());
